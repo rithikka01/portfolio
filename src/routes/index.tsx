@@ -9,7 +9,7 @@ import {
   navItems,
   projects,
   skillGroups,
-  type Project,
+  toolLogos,
 } from "@/lib/portfolio-data";
 import { CRT, LevelSection, PixelStars, XPBar, useInView } from "@/components/game/primitives";
 import { GameNav, HUD, StartScreen } from "@/components/game/shell";
@@ -28,8 +28,10 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Press start and explore the levels: skills, missions, projects and achievements of Rithikka N, AI/ML and app developer.",
+          "Press start and explore: skills, experience, projects and achievements of Rithikka N, AI/ML and app developer.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -39,7 +41,6 @@ function Index() {
   const [started, setStarted] = useState(false);
   const [xp, setXp] = useState(0);
   const [active, setActive] = useState("home");
-  const [openProject, setOpenProject] = useState<Project | null>(null);
   const { muted, toggle } = useChiptune();
 
   const handleStart = useCallback(() => setStarted(true), []);
@@ -63,13 +64,6 @@ function Index() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [started]);
 
-  useEffect(() => {
-    if (!openProject) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenProject(null);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [openProject]);
-
   const levelIndex = Math.max(1, navItems.findIndex((n) => n.id === active));
 
   return (
@@ -88,7 +82,7 @@ function Index() {
             <PlayerLevel />
             <SkillsLevel />
             <MissionsLevel />
-            <ProjectsLevel onOpen={setOpenProject} />
+            <ProjectsLevel />
             <AchievementsLevel />
             <EducationLevel />
             <CertificationsLevel />
@@ -97,10 +91,6 @@ function Index() {
               © 2026 RITHIKKA N — GAME OVER? NO. CONTINUE ▸
             </footer>
           </main>
-
-          {openProject && (
-            <ProjectModal project={openProject} onClose={() => setOpenProject(null)} />
-          )}
         </>
       )}
     </>
@@ -118,24 +108,29 @@ function Hero() {
           <div className="pointer-events-none absolute bottom-4 right-8 animate-float-slow font-pixel text-2xl text-neon-cyan/40">
             ☁
           </div>
-          <p className="font-pixel text-[0.6rem] text-neon-green">PLAYER 01 · WORLD 2026</p>
-          <h1 className="mt-5 animate-glitch text-2xl text-neon-pink sm:text-4xl md:text-5xl">
-            RITHIKKA N
+          <h1 className="animate-glitch text-xl text-neon-pink sm:text-3xl md:text-4xl">
+            Hey, I&apos;m Rithikka 👋
           </h1>
-          <p className="mt-5 font-pixel text-[0.7rem] leading-6 text-neon-cyan sm:text-sm">
-            COMPUTER SCIENCE ENGINEERING GRADUATE
+          <p className="mt-6 font-pixel text-[0.65rem] leading-6 text-neon-cyan sm:text-sm">
+            CSE (AI &amp; ML) GRADUATE | SOFTWARE DEVELOPER | AI &amp; ML ENTHUSIAST
           </p>
-          <p className="mt-2 text-xl text-neon-yellow">AI / ML • App Development • UI/UX</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#projects" className="arcade-btn hover:arcade-btn-hover">
-              ▸ ENTER PROJECT WORLD
+          <p className="mt-4 max-w-3xl text-xl leading-8 text-foreground/90">
+            Building practical applications and AI-driven solutions with a passion for learning,
+            problem-solving, and technology.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
+              href={`mailto:${links.email}`}
+              className="arcade-btn hover:arcade-btn-hover"
+            >
+              HIRE ME
             </a>
             <a
               href="#contact"
               className="arcade-btn hover:arcade-btn-hover"
               style={{ background: "var(--neon-cyan)" }}
             >
-              ✉ FINAL MISSION
+              LET&apos;S CONNECT!
             </a>
           </div>
         </div>
@@ -145,70 +140,49 @@ function Hero() {
 }
 
 function PlayerLevel() {
-  const stats = [
-    { k: "STATUS", v: "AVAILABLE FOR QUESTS", c: "var(--neon-green)" },
-    { k: "ROLE", v: "AI/ML • APP DEV • UI/UX", c: "var(--neon-cyan)" },
-    { k: "LOCATION", v: "Chennai, India", c: "var(--neon-yellow)" },
-    { k: "EDUCATION", v: "B.E. CSE (AI & ML), 2022—2026", c: "var(--neon-pink)" },
+  const hobbies = [
+    { icon: "🎨", text: "Exploring creative design & UI/UX" },
+    { icon: "🎵", text: "Music & singing" },
+    { icon: "✈️", text: "Travelling" },
   ];
   return (
-    <LevelSection
-      id="player"
-      label="LEVEL 01"
-      title="MEET THE PLAYER"
-      accent="var(--neon-pink)"
-    >
-      <div className="grid gap-6 md:grid-cols-[320px_1fr]">
-        <div className="pixel-frame pixel-frame-cyan p-6 text-center">
-          <div
-            className="mx-auto flex h-32 w-32 items-center justify-center border-4 border-neon-pink font-pixel text-3xl text-neon-pink animate-float-slow"
-            style={{ background: "oklch(0.14 0.05 285)" }}
-            aria-hidden
-          >
-            RN
-          </div>
-          <p className="mt-5 font-pixel text-xs text-neon-cyan">RITHIKKA N</p>
-          <p className="mt-2 text-lg text-muted-foreground">CLASS: BUILDER</p>
-          <div className="mt-5 space-y-2 text-left">
-            {[
-              ["HP", 100, "var(--neon-green)"],
-              ["CREATIVITY", 92, "var(--neon-pink)"],
-              ["PROBLEM SOLVING", 88, "var(--neon-yellow)"],
-            ].map(([k, v, c]) => (
-              <div key={k as string}>
-                <p className="font-pixel text-[0.5rem] text-muted-foreground">{k as string}</p>
-                <XPBar value={v as number} color={c as string} />
-              </div>
-            ))}
-          </div>
+    <LevelSection id="player" label="LEVEL 01" title="ABOUT ME" accent="var(--neon-pink)">
+      <div className="pixel-frame p-6 sm:p-8">
+        <h3 className="text-sm text-neon-yellow sm:text-base">Hey there! 👋 I&apos;m Rithikka</h3>
+        <div className="mt-6 space-y-5 text-xl leading-8 text-foreground/90">
+          <p>
+            I&apos;m a CSE (AI &amp; ML) graduate, a software developer by passion, and a curious
+            learner who enjoys turning ideas into practical solutions. My journey into technology has
+            taken me through software development, web applications, AI &amp; machine learning, and
+            UI/UX, where I&apos;ve enjoyed exploring how technology can solve real-world problems.
+          </p>
+          <p>
+            I love building things that are not just functional, but also simple, intuitive, and
+            meaningful for the people using them. From developing applications to exploring AI-driven
+            solutions, I&apos;m always excited to learn, experiment, and take on new challenges.
+          </p>
+          <p>
+            My goal is to grow as a software developer while combining my knowledge of computer
+            science, AI &amp; ML, and application development to build useful and impactful products.
+          </p>
         </div>
 
-        <div className="space-y-6">
-          <div className="pixel-frame p-6">
-            <p className="font-pixel text-[0.6rem] text-neon-yellow">▸ ABOUT THE PLAYER</p>
-            <p className="mt-4 text-xl leading-8 text-foreground/90">
-              Computer Science Engineering graduate specializing in Artificial Intelligence and
-              Machine Learning with hands-on experience in building AI-driven applications, machine
-              learning models, and cross-platform mobile applications. Experienced in Python,
-              Flutter, Firebase, and UI/UX design, with a strong foundation in software development
-              and problem-solving. Passionate about leveraging AI to build scalable, user-centric
-              products and continuously learning emerging technologies.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {stats.map((s) => (
-              <div
-                key={s.k}
-                className="pixel-frame p-4 transition-transform duration-150 hover:-translate-y-1"
-              >
-                <p className="font-pixel text-[0.5rem]" style={{ color: s.c }}>
-                  {s.k}
-                </p>
-                <p className="mt-2 text-lg">{s.v}</p>
-              </div>
-            ))}
-          </div>
+        <p className="mt-8 font-pixel text-[0.55rem] text-neon-cyan">▸ APART FROM CODING, I LOVE</p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          {hobbies.map((h) => (
+            <div
+              key={h.text}
+              className="pixel-frame p-4 text-lg transition-transform duration-150 hover:-translate-y-1"
+            >
+              <span className="mr-2 text-2xl">{h.icon}</span>
+              {h.text}
+            </div>
+          ))}
         </div>
+
+        <p className="mt-8 border-l-4 border-neon-pink pl-4 text-xl italic leading-8 text-neon-yellow">
+          &ldquo;You can always do more than you know — never stop learning.&rdquo;
+        </p>
       </div>
     </LevelSection>
   );
@@ -216,12 +190,17 @@ function PlayerLevel() {
 
 function SkillsLevel() {
   return (
-    <LevelSection id="skills" label="LEVEL 02" title="SKILL INVENTORY" accent="var(--neon-cyan)">
+    <LevelSection
+      id="skills"
+      label="LEVEL 02"
+      title="PROFESSIONAL SKILLS"
+      accent="var(--neon-cyan)"
+    >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((g) => (
           <div
             key={g.title}
-            className="pixel-frame group p-5 transition-all duration-150 hover:-translate-y-1 hover:shadow-none"
+            className="pixel-frame group p-5 transition-all duration-150 hover:-translate-y-1"
             style={{ borderColor: g.color }}
           >
             <p className="font-pixel text-[0.55rem]" style={{ color: g.color }}>
@@ -249,38 +228,62 @@ function SkillsLevel() {
           </div>
         ))}
       </div>
+
+      <div className="mt-12">
+        <p className="font-pixel text-[0.6rem] text-neon-yellow">▸ TOOLS I USE</p>
+        <div className="mt-5 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+          {toolLogos.map((t) => (
+            <div
+              key={t.name}
+              title={t.name}
+              className="pixel-frame flex flex-col items-center gap-2 p-3 transition-transform duration-150 hover:-translate-y-1"
+            >
+              <img
+                src={`https://cdn.simpleicons.org/${t.slug}`}
+                alt={`${t.name} logo`}
+                loading="lazy"
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
+                style={{ imageRendering: "auto" }}
+              />
+              <span className="text-center text-sm leading-5 text-muted-foreground">{t.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </LevelSection>
   );
 }
 
 function MissionsLevel() {
   return (
-    <LevelSection id="missions" label="LEVEL 03" title="MISSION LOG" accent="var(--neon-green)">
-      <div className="space-y-6">
+    <LevelSection id="missions" label="LEVEL 03" title="EXPERIENCE" accent="var(--neon-green)">
+      <div className="relative space-y-8 border-l-4 border-neon-green/60 pl-6 sm:pl-10">
         {missions.map((m) => (
-          <article
-            key={m.id}
-            className="pixel-frame p-6 transition-transform duration-150 hover:-translate-y-1"
-          >
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="font-pixel text-[0.6rem] text-neon-green">{m.id}</p>
-              <span className="border-2 border-neon-green px-2 py-1 font-pixel text-[0.45rem] text-neon-green">
-                ✓ COMPLETED
-              </span>
-            </div>
-            <h3 className="mt-4 text-sm text-neon-cyan sm:text-base">{m.org}</h3>
-            <p className="mt-2 text-xl text-neon-yellow">{m.role}</p>
-            <p className="text-lg text-muted-foreground">{m.duration}</p>
-            <ul className="mt-4 space-y-2">
-              {m.details.map((d) => (
-                <li key={d} className="flex gap-3 text-lg leading-7">
-                  <span className="text-neon-pink">▸</span>
-                  <span>{d}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-5">
-              <XPBar value={100} color="var(--neon-green)" />
+          <article key={m.id} className="relative">
+            <span
+              aria-hidden
+              className="absolute -left-[34px] top-4 h-4 w-4 border-2 border-neon-green bg-background sm:-left-[50px]"
+            />
+            <div className="pixel-frame p-6 transition-transform duration-150 hover:-translate-y-1">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="font-pixel text-[0.6rem] text-neon-green">{m.id}</p>
+                <span className="border-2 border-neon-green px-2 py-1 font-pixel text-[0.45rem] text-neon-green">
+                  🗓 {m.duration}
+                </span>
+              </div>
+              <h3 className="mt-4 text-sm text-neon-cyan sm:text-base">{m.org}</h3>
+              <p className="mt-3 text-xl text-neon-pink">PROJECT: {m.project}</p>
+              <p className="text-xl text-neon-yellow">ROLE: {m.role}</p>
+              <ul className="mt-4 space-y-2">
+                {m.details.map((d) => (
+                  <li key={d} className="flex gap-3 text-lg leading-7">
+                    <span className="text-neon-pink">▸</span>
+                    <span>{d}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </article>
         ))}
@@ -289,20 +292,22 @@ function MissionsLevel() {
   );
 }
 
-function ProjectsLevel({ onOpen }: { onOpen: (p: Project) => void }) {
+function ProjectsLevel() {
   return (
-    <LevelSection id="projects" label="LEVEL 04" title="PROJECT WORLD" accent="var(--neon-yellow)">
+    <LevelSection id="projects" label="LEVEL 04" title="PROJECTS" accent="var(--neon-yellow)">
       <div className="grid gap-6 md:grid-cols-2">
         {projects.map((p) => (
-          <button
+          <a
             key={p.title}
-            onClick={() => onOpen(p)}
-            className="pixel-frame group relative overflow-hidden p-6 text-left transition-transform duration-150 hover:-translate-y-2"
+            href={p.repo}
+            target="_blank"
+            rel="noreferrer"
+            className="pixel-frame group relative block overflow-hidden p-6 transition-transform duration-150 hover:-translate-y-2"
             style={{ borderColor: p.color }}
           >
             <div className="flex items-center justify-between">
               <span className="font-pixel text-[0.5rem]" style={{ color: p.color }}>
-                {p.id}
+                {p.category}
               </span>
               <span className="font-pixel text-[0.45rem] text-neon-pink opacity-0 transition-opacity group-hover:opacity-100">
                 ▶ MISSION READY
@@ -314,94 +319,41 @@ function ProjectsLevel({ onOpen }: { onOpen: (p: Project) => void }) {
             >
               {p.title}
             </h3>
-            <p className="mt-2 font-pixel text-[0.5rem] text-muted-foreground">{p.category}</p>
             <p className="mt-4 text-lg leading-7 text-foreground/90">{p.short}</p>
-            <div className="mt-4 max-h-0 overflow-hidden transition-all duration-300 group-hover:max-h-40">
-              <div className="flex flex-wrap gap-2">
-                {p.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="border-2 px-2 py-1 font-pixel text-[0.45rem]"
-                    style={{ borderColor: p.color, color: p.color }}
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {p.tech.map((t) => (
+                <span
+                  key={t}
+                  className="border-2 px-2 py-1 font-pixel text-[0.45rem]"
+                  style={{ borderColor: p.color, color: p.color }}
+                >
+                  {t}
+                </span>
+              ))}
             </div>
-            <span className="arcade-btn mt-6 inline-block group-hover:arcade-btn-hover">
-              VIEW PROJECT
-            </span>
-          </button>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="arcade-btn inline-block group-hover:arcade-btn-hover">
+                VIEW CODE ▸
+              </span>
+              {p.demo && (
+                <span
+                  className="arcade-btn inline-block"
+                  style={{ background: "var(--neon-cyan)" }}
+                >
+                  LIVE DEMO
+                </span>
+              )}
+            </div>
+          </a>
         ))}
       </div>
     </LevelSection>
   );
 }
 
-function ProjectModal({ project, onClose }: { project: Project; onClose: () => void }) {
-  return (
-    <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-[oklch(0.08_0.03_285)]/85 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label={project.title}
-      onClick={onClose}
-    >
-      <div
-        className="pixel-frame max-h-[85vh] w-full max-w-2xl animate-pop-in overflow-y-auto p-6 sm:p-8"
-        style={{ borderColor: project.color }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="font-pixel text-[0.5rem]" style={{ color: project.color }}>
-              {project.id} · {project.category}
-            </p>
-            <h3 className="mt-3 text-base leading-7" style={{ color: project.color }}>
-              {project.title}
-            </h3>
-          </div>
-          <button
-            onClick={onClose}
-            aria-label="Close project"
-            className="min-h-11 min-w-11 border-2 border-neon-pink font-pixel text-[0.6rem] text-neon-pink hover:bg-neon-pink hover:text-primary-foreground"
-          >
-            X
-          </button>
-        </div>
-
-        <p className="mt-6 text-xl leading-8">{project.long}</p>
-
-        <p className="mt-6 font-pixel text-[0.55rem] text-neon-cyan">▸ FEATURES</p>
-        <ul className="mt-3 space-y-2">
-          {project.features.map((f) => (
-            <li key={f} className="flex gap-3 text-lg">
-              <span style={{ color: project.color }}>◆</span>
-              {f}
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-6 font-pixel text-[0.55rem] text-neon-cyan">▸ TECH STACK</p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="border-2 px-2 py-1 font-pixel text-[0.45rem]"
-              style={{ borderColor: project.color, color: project.color }}
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function AchievementsLevel() {
   const { ref, inView } = useInView<HTMLDivElement>(0.2);
+  const [open, setOpen] = useState<string | null>(null);
   return (
     <LevelSection
       id="achievements"
@@ -416,29 +368,44 @@ function AchievementsLevel() {
           </p>
         )}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {achievements.map((a, i) => (
-            <div
-              key={a.title}
-              className="pixel-frame p-5 transition-transform duration-150 hover:-translate-y-1"
-              style={{
-                borderColor: a.color,
-                animation: inView ? `pop-in 0.5s steps(6,end) ${i * 0.12}s both` : undefined,
-              }}
-            >
-              <div
-                className="flex h-12 w-12 items-center justify-center border-2 text-xl"
-                style={{ borderColor: a.color, color: a.color }}
-                aria-hidden
+          {achievements.map((a, i) => {
+            const isOpen = open === a.title;
+            return (
+              <button
+                key={a.title}
+                onClick={() => setOpen(isOpen ? null : a.title)}
+                aria-expanded={isOpen}
+                className="pixel-frame p-5 text-left transition-transform duration-150 hover:-translate-y-1"
+                style={{
+                  borderColor: a.color,
+                  animation: inView ? `pop-in 0.5s steps(6,end) ${i * 0.12}s both` : undefined,
+                }}
               >
-                {a.icon}
-              </div>
-              <p className="mt-4 font-pixel text-[0.6rem]" style={{ color: a.color }}>
-                {a.badge}
-              </p>
-              <p className="mt-3 text-lg leading-7">{a.title}</p>
-              <p className="mt-2 text-base text-muted-foreground">{a.note}</p>
-            </div>
-          ))}
+                <div className="flex items-center justify-between">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center border-2 text-xl"
+                    style={{ borderColor: a.color, color: a.color }}
+                    aria-hidden
+                  >
+                    {a.icon}
+                  </div>
+                  <span className="font-pixel text-[0.5rem] text-muted-foreground">
+                    {isOpen ? "▲ CLOSE" : "▼ DETAILS"}
+                  </span>
+                </div>
+                <p className="mt-4 font-pixel text-[0.6rem]" style={{ color: a.color }}>
+                  {a.badge}
+                </p>
+                <p className="mt-3 text-lg leading-7">{a.title}</p>
+                <p className="mt-2 text-base text-muted-foreground">{a.note}</p>
+                {isOpen && (
+                  <p className="mt-4 animate-pop-in border-t-2 border-border pt-4 text-lg leading-7 text-foreground/90">
+                    {a.detail}
+                  </p>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </LevelSection>
@@ -447,7 +414,12 @@ function AchievementsLevel() {
 
 function EducationLevel() {
   return (
-    <LevelSection id="education" label="LEVEL 06" title="TRAINING LOG" accent="var(--neon-blue)">
+    <LevelSection
+      id="education"
+      label="LEVEL 06"
+      title="EDUCATION JOURNEY"
+      accent="var(--neon-blue)"
+    >
       <div className="space-y-5">
         {education.map((e) => (
           <div
@@ -507,32 +479,49 @@ function CertificationsLevel() {
 
 function ContactLevel() {
   return (
-    <LevelSection id="contact" label="LEVEL 08" title="FINAL MISSION" accent="var(--neon-pink)">
-      <div className="pixel-frame pixel-frame-pink p-8 text-center sm:p-12">
-        <h3 className="text-base text-neon-yellow text-glow sm:text-xl">
-          READY TO BUILD SOMETHING?
-        </h3>
+    <LevelSection id="contact" label="LEVEL 08" title="LET'S CONNECT" accent="var(--neon-pink)">
+      <div className="pixel-frame pixel-frame-pink mx-auto max-w-2xl p-8 text-center sm:p-12">
+        <h3 className="text-base text-neon-yellow text-glow sm:text-xl">LET&apos;S CONNECT</h3>
         <p className="mx-auto mt-5 max-w-xl text-xl leading-8">
-          Let's create something meaningful with AI, technology and design.
+          I&apos;m currently open to new opportunities — my inbox is always open. Whether you have a
+          question or just want to say hi, I&apos;ll do my best to get back to you!
         </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
+
+        <div className="mt-8 flex justify-center gap-5">
           <a
             href={links.github}
             target="_blank"
             rel="noreferrer"
-            className="arcade-btn hover:arcade-btn-hover"
+            aria-label="GitHub profile"
+            className="flex h-14 w-14 items-center justify-center border-4 border-neon-cyan text-neon-cyan transition-transform hover:-translate-y-1"
           >
-            GITHUB
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden>
+              <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.2c-3.34.73-4.04-1.42-4.04-1.42-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.96 0-1.32.47-2.4 1.24-3.24-.12-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18a4.65 4.65 0 0 1 1.24 3.24c0 4.63-2.81 5.65-5.49 5.95.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z" />
+            </svg>
           </a>
           <a
             href={links.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="arcade-btn hover:arcade-btn-hover"
-            style={{ background: "var(--neon-cyan)" }}
+            aria-label="LinkedIn profile"
+            className="flex h-14 w-14 items-center justify-center border-4 border-neon-blue text-neon-blue transition-transform hover:-translate-y-1"
           >
-            LINKEDIN
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden>
+              <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.6c0-1.34-.03-3.07-1.95-3.07-1.96 0-2.26 1.46-2.26 2.97V21h-4V9Z" />
+            </svg>
           </a>
+          <a
+            href={`mailto:${links.email}`}
+            aria-label="Send an email"
+            className="flex h-14 w-14 items-center justify-center border-4 border-neon-yellow text-neon-yellow transition-transform hover:-translate-y-1"
+          >
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden>
+              <path d="M2 5h20v14H2V5Zm2.4 2L12 12.3 19.6 7H4.4Zm15.6 2.3-8 5.6-8-5.6V17h16V9.3Z" />
+            </svg>
+          </a>
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
           <a
             href={`mailto:${links.email}`}
             className="arcade-btn hover:arcade-btn-hover"
