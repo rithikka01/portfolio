@@ -88,21 +88,49 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
+/** Logos served from Simple Icons CDN (slug based). */
+export const toolLogos: { name: string; slug: string }[] = [
+  { name: "Python", slug: "python" },
+  { name: "Java", slug: "openjdk" },
+  { name: "SQL", slug: "mysql" },
+  { name: "Flutter", slug: "flutter" },
+  { name: "Firebase", slug: "firebase" },
+  { name: "Dart", slug: "dart" },
+  { name: "HTML", slug: "html5" },
+  { name: "CSS", slug: "css" },
+  { name: "JavaScript", slug: "javascript" },
+  { name: "Flask", slug: "flask" },
+  { name: "Google Cloud", slug: "googlecloud" },
+  { name: "PostgreSQL", slug: "postgresql" },
+  { name: "Render", slug: "render" },
+  { name: "TensorFlow", slug: "tensorflow" },
+  { name: "Scikit-learn", slug: "scikitlearn" },
+  { name: "Pandas", slug: "pandas" },
+  { name: "NumPy", slug: "numpy" },
+  { name: "Figma", slug: "figma" },
+  { name: "Canva", slug: "canva" },
+  { name: "Postman", slug: "postman" },
+  { name: "Git", slug: "git" },
+  { name: "GitHub", slug: "github" },
+];
+
 export const missions = [
   {
     id: "MISSION 01",
-    org: "Sri Sairam Techno Incubator Foundation",
-    role: "App Developer Intern",
-    duration: "Sep 2024 — Jan 2025",
+    org: "Codsoft Technologies",
+    project: "Product Visual Design",
+    role: "UI/UX Intern",
+    duration: "Feb 2024 — Mar 2024",
     details: [
-      "Managed frontend development and UI/UX design of Skoolinq educational app with Flutter.",
-      "Designed responsive layouts to improve user experience.",
-      "Created and launched key frontend functionalities including personalized dashboards, anonymous messaging, and educational contests.",
+      "Designed product visuals in Figma and Canva.",
+      "Focused on usability, accessibility, and brand consistency.",
+      "Applied iterative feedback to refine layouts and enhance design quality.",
     ],
   },
   {
     id: "MISSION 02",
     org: "Pantech eLearning",
+    project: "Government Schemes Chatbot",
     role: "NLP Intern",
     duration: "Jun 2024",
     details: [
@@ -113,13 +141,14 @@ export const missions = [
   },
   {
     id: "MISSION 03",
-    org: "Codsoft Technologies",
-    role: "UI/UX Intern",
-    duration: "Feb 2024 — Mar 2024",
+    org: "Sri Sairam Techno Incubator Foundation",
+    project: "Skoolinq Educational App",
+    role: "App Developer Intern",
+    duration: "Sep 2024 — Jan 2025",
     details: [
-      "Designed product visuals in Figma and Canva.",
-      "Focused on usability, accessibility, and brand consistency.",
-      "Applied iterative feedback to refine layouts and enhance design quality.",
+      "Managed frontend development and UI/UX design of Skoolinq educational app with Flutter.",
+      "Designed responsive layouts to improve user experience.",
+      "Created and launched key frontend functionalities including personalized dashboards, anonymous messaging, and educational contests.",
     ],
   },
 ];
@@ -133,6 +162,8 @@ export type Project = {
   long: string;
   features: string[];
   color: string;
+  repo: string;
+  demo?: string;
 };
 
 export const projects: Project[] = [
@@ -151,6 +182,7 @@ export const projects: Project[] = [
       "Optimized farming recommendations",
     ],
     color: "var(--neon-green)",
+    repo: "https://github.com/rithikka01/smart-harv",
   },
   {
     id: "WORLD 1-2",
@@ -167,6 +199,7 @@ export const projects: Project[] = [
       "Food donation workflow",
     ],
     color: "var(--neon-pink)",
+    repo: "https://github.com/rithikka01/hungerheal01",
   },
   {
     id: "WORLD 1-3",
@@ -182,10 +215,11 @@ export const projects: Project[] = [
       "UI/UX design",
     ],
     color: "var(--neon-cyan)",
+    repo: "https://github.com/rithikka01/skoolinq-final",
   },
   {
     id: "WORLD 1-4",
-    title: "GOVERNMENT DRIVING SCHEMES CHATBOT",
+    title: "GOVERNMENT DRIVING AI ASSISTANT",
     category: "NLP / AI",
     tech: ["Python", "NLP", "Flask"],
     short: "NLP chatbot for instant answers on government schemes.",
@@ -196,6 +230,8 @@ export const projects: Project[] = [
       "Reduced manual query handling",
     ],
     color: "var(--neon-yellow)",
+    repo: "https://github.com/rithikka01/government-driving-ai-assistant",
+    demo: "https://government-driving-ai-assistant.vercel.app/",
   },
 ];
 
@@ -204,6 +240,8 @@ export const achievements = [
     badge: "9TH PLACE",
     title: "BUILD2GETHER – AI SDG HACKATHON 2026",
     note: "9th among 500 teams",
+    detail:
+      "Competed in an AI-focused hackathon aimed at solving Sustainable Development Goal (SDG) challenges. Our team developed and presented a solution and secured 9th place among 500 participating teams, in collaboration with ETH Zürich and Nanyang Technological University.",
     color: "var(--neon-yellow)",
     icon: "★",
   },
@@ -211,6 +249,8 @@ export const achievements = [
     badge: "FINALIST",
     title: "HCL × GUVI – Sairam 24-Hour Hackathon League 2025",
     note: "Finalist",
+    detail:
+      "Participated in a 24-hour hackathon where we worked under a strict time constraint to develop a solution from idea to prototype and pitch. Our project successfully reached the finalist stage.",
     color: "var(--neon-pink)",
     icon: "♦",
   },
@@ -218,6 +258,8 @@ export const achievements = [
     badge: "SEMIFINALIST",
     title: "Project Deep Blue Hackathon — Mastek 2025",
     note: "Semifinalist",
+    detail:
+      "Worked on a technology-based problem statement as part of the Mastek Project Deep Blue Hackathon. Our solution progressed through the initial rounds and reached the semifinal stage.",
     color: "var(--neon-cyan)",
     icon: "▲",
   },
@@ -225,6 +267,8 @@ export const achievements = [
     badge: "TOP 50 FINALIST",
     title: "HackHerVerse-1 — Google Developer Group & Rajalakshmi Engineering College 2025",
     note: "Top 50 finalist",
+    detail:
+      "Participated in a competitive hackathon organized by Google Developer Group and Rajalakshmi Engineering College, where our project was selected among the Top 50 finalists.",
     color: "var(--neon-purple)",
     icon: "✦",
   },
@@ -232,6 +276,8 @@ export const achievements = [
     badge: "DESIGN LEAD",
     title: "Department Symposium",
     note: "Design Lead",
+    detail:
+      "Took responsibility for the creative and visual side of the department symposium, including event branding, promotional designs, and maintaining a consistent visual identity.",
     color: "var(--neon-green)",
     icon: "✎",
   },
@@ -239,6 +285,8 @@ export const achievements = [
     badge: "VOLUNTEER",
     title: "Sairam Model United Nations",
     note: "Volunteer",
+    detail:
+      "Worked with the organizing committee to help coordinate the Model United Nations event, supporting event planning, coordination, and smooth execution.",
     color: "var(--neon-blue)",
     icon: "◉",
   },
@@ -293,9 +341,9 @@ export const certifications = [
 
 export const navItems = [
   { id: "home", label: "HOME", short: "HOME" },
-  { id: "player", label: "PLAYER", short: "PLYR" },
+  { id: "player", label: "ABOUT", short: "ABT" },
   { id: "skills", label: "SKILLS", short: "SKIL" },
-  { id: "missions", label: "MISSIONS", short: "MSSN" },
+  { id: "missions", label: "EXPERIENCE", short: "EXP" },
   { id: "projects", label: "PROJECTS", short: "PROJ" },
   { id: "achievements", label: "ACHIEVEMENTS", short: "ACHV" },
   { id: "education", label: "EDUCATION", short: "EDU" },
