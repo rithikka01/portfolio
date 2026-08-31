@@ -8,7 +8,6 @@ import {
   missions,
   navItems,
   projects,
-  skillGroups,
   toolLogos,
 } from "@/lib/portfolio-data";
 import { CRT, LevelSection, PixelStars, XPBar, useInView } from "@/components/game/primitives";
