@@ -226,7 +226,24 @@ export const projects: Project[] = [
     ],
     color: "var(--neon-yellow)",
     repo: "https://github.com/rithikka01/government-driving-ai-assistant",
-    demo: "https://government-driving-ai-assistant.vercel.app/",
+  },
+  {
+    id: "WORLD 1-5",
+    title: "CONTRACT RISK BOT — MVP",
+    category: "AI / NLP",
+    tech: ["Python", "Streamlit", "NLP", "OpenAI", "ReportLab"],
+    short:
+      "AI-powered contract analyzer that detects risks, explains clauses, and suggests safer alternatives with automated PDF/JSON reports.",
+    long:
+      "AI-powered contract analyzer that detects risks, explains clauses, and suggests safer alternatives with automated PDF/JSON reports.",
+    features: [
+      "Risk detection",
+      "Clause explanation",
+      "Safer alternative suggestions",
+      "Automated PDF/JSON reports",
+    ],
+    color: "var(--neon-purple)",
+    repo: "https://github.com/rithikka01/contract-bot",
   },
 ];
 
