@@ -8,7 +8,6 @@ import {
   missions,
   navItems,
   projects,
-  skillGroups,
   toolLogos,
 } from "@/lib/portfolio-data";
 import { CRT, LevelSection, PixelStars, XPBar, useInView } from "@/components/game/primitives";
@@ -193,64 +192,28 @@ function SkillsLevel() {
     <LevelSection
       id="skills"
       label="LEVEL 02"
-      title="PROFESSIONAL SKILLS"
+      title="SKILLS & TOOLS"
       accent="var(--neon-cyan)"
     >
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {skillGroups.map((g) => (
+      <p className="font-pixel text-[0.6rem] text-neon-yellow">▸ TOOLS I USE</p>
+      <div className="mt-5 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+        {toolLogos.map((t) => (
           <div
-            key={g.title}
-            className="pixel-frame group p-5 transition-all duration-150 hover:-translate-y-1"
-            style={{ borderColor: g.color }}
+            key={t.name}
+            title={t.name}
+            className="pixel-frame flex flex-col items-center gap-2 p-4 transition-transform duration-150 hover:-translate-y-1"
           >
-            <p className="font-pixel text-[0.55rem]" style={{ color: g.color }}>
-              <span className="mr-2 text-base">{g.icon}</span>
-              {g.title}
-            </p>
-            <ul className="mt-4 space-y-3">
-              {g.items.map((it) => (
-                <li key={it.name}>
-                  <div className="flex items-baseline justify-between gap-2">
-                    <span className="text-lg">{it.name}</span>
-                    {it.tag && (
-                      <span className="font-pixel text-[0.45rem] text-muted-foreground">
-                        {it.tag}
-                      </span>
-                    )}
-                  </div>
-                  <XPBar value={it.level} color={g.color} />
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 font-pixel text-[0.45rem] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-              ★ ABILITY UNLOCKED
-            </p>
+            <img
+              src={`https://api.iconify.design/simple-icons/${t.slug}.svg?color=%23ffffff`}
+              alt={`${t.name} logo`}
+              loading="lazy"
+              width={36}
+              height={36}
+              className="h-9 w-9 object-contain"
+            />
+            <span className="text-center text-sm leading-5 text-muted-foreground">{t.name}</span>
           </div>
         ))}
-      </div>
-
-      <div className="mt-12">
-        <p className="font-pixel text-[0.6rem] text-neon-yellow">▸ TOOLS I USE</p>
-        <div className="mt-5 grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-          {toolLogos.map((t) => (
-            <div
-              key={t.name}
-              title={t.name}
-              className="pixel-frame flex flex-col items-center gap-2 p-3 transition-transform duration-150 hover:-translate-y-1"
-            >
-              <img
-                src={`https://cdn.simpleicons.org/${t.slug}`}
-                alt={`${t.name} logo`}
-                loading="lazy"
-                width={32}
-                height={32}
-                className="h-8 w-8 object-contain"
-                style={{ imageRendering: "auto" }}
-              />
-              <span className="text-center text-sm leading-5 text-muted-foreground">{t.name}</span>
-            </div>
-          ))}
-        </div>
       </div>
     </LevelSection>
   );

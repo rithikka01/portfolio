@@ -88,30 +88,25 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
-/** Logos served from Simple Icons CDN (slug based). */
+/** Logos served from Iconify (Simple Icons), recolored white for the dark theme. */
 export const toolLogos: { name: string; slug: string }[] = [
   { name: "Python", slug: "python" },
   { name: "Java", slug: "openjdk" },
-  { name: "SQL", slug: "mysql" },
+  { name: "MySQL", slug: "mysql" },
   { name: "Flutter", slug: "flutter" },
   { name: "Firebase", slug: "firebase" },
-  { name: "Dart", slug: "dart" },
   { name: "HTML", slug: "html5" },
   { name: "CSS", slug: "css" },
   { name: "JavaScript", slug: "javascript" },
   { name: "Flask", slug: "flask" },
-  { name: "Google Cloud", slug: "googlecloud" },
   { name: "PostgreSQL", slug: "postgresql" },
-  { name: "Render", slug: "render" },
-  { name: "TensorFlow", slug: "tensorflow" },
-  { name: "Scikit-learn", slug: "scikitlearn" },
-  { name: "Pandas", slug: "pandas" },
-  { name: "NumPy", slug: "numpy" },
   { name: "Figma", slug: "figma" },
   { name: "Canva", slug: "canva" },
   { name: "Postman", slug: "postman" },
-  { name: "Git", slug: "git" },
   { name: "GitHub", slug: "github" },
+  { name: "NLP", slug: "huggingface" },
+  { name: "AI", slug: "openai" },
+  { name: "ML", slug: "tensorflow" },
 ];
 
 export const missions = [
@@ -231,7 +226,24 @@ export const projects: Project[] = [
     ],
     color: "var(--neon-yellow)",
     repo: "https://github.com/rithikka01/government-driving-ai-assistant",
-    demo: "https://government-driving-ai-assistant.vercel.app/",
+  },
+  {
+    id: "WORLD 1-5",
+    title: "CONTRACT RISK BOT — MVP",
+    category: "AI / NLP",
+    tech: ["Python", "Streamlit", "NLP", "OpenAI", "ReportLab"],
+    short:
+      "AI-powered contract analyzer that detects risks, explains clauses, and suggests safer alternatives with automated PDF/JSON reports.",
+    long:
+      "AI-powered contract analyzer that detects risks, explains clauses, and suggests safer alternatives with automated PDF/JSON reports.",
+    features: [
+      "Risk detection",
+      "Clause explanation",
+      "Safer alternative suggestions",
+      "Automated PDF/JSON reports",
+    ],
+    color: "var(--neon-purple)",
+    repo: "https://github.com/rithikka01/contract-bot",
   },
 ];
 
