@@ -88,30 +88,25 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
-/** Logos served from Simple Icons CDN (slug based). */
+/** Logos served from Iconify (Simple Icons), recolored white for the dark theme. */
 export const toolLogos: { name: string; slug: string }[] = [
   { name: "Python", slug: "python" },
   { name: "Java", slug: "openjdk" },
-  { name: "SQL", slug: "mysql" },
+  { name: "MySQL", slug: "mysql" },
   { name: "Flutter", slug: "flutter" },
   { name: "Firebase", slug: "firebase" },
-  { name: "Dart", slug: "dart" },
   { name: "HTML", slug: "html5" },
   { name: "CSS", slug: "css" },
   { name: "JavaScript", slug: "javascript" },
   { name: "Flask", slug: "flask" },
-  { name: "Google Cloud", slug: "googlecloud" },
   { name: "PostgreSQL", slug: "postgresql" },
-  { name: "Render", slug: "render" },
-  { name: "TensorFlow", slug: "tensorflow" },
-  { name: "Scikit-learn", slug: "scikitlearn" },
-  { name: "Pandas", slug: "pandas" },
-  { name: "NumPy", slug: "numpy" },
   { name: "Figma", slug: "figma" },
   { name: "Canva", slug: "canva" },
   { name: "Postman", slug: "postman" },
-  { name: "Git", slug: "git" },
   { name: "GitHub", slug: "github" },
+  { name: "NLP", slug: "huggingface" },
+  { name: "AI", slug: "openai" },
+  { name: "ML", slug: "tensorflow" },
 ];
 
 export const missions = [
