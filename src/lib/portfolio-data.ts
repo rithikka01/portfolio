@@ -154,11 +154,9 @@ export type Project = {
   category: string;
   tech: string[];
   short: string;
-  long: string;
-  features: string[];
+  description: string;
   color: string;
   repo: string;
-  demo?: string;
 };
 
 export const projects: Project[] = [
@@ -166,16 +164,10 @@ export const projects: Project[] = [
     id: "WORLD 1-1",
     title: "SMART HARVEST ANALYTICS",
     category: "AI + ML + IoT",
-    tech: ["Machine Learning", "IoT", "Python"],
+    tech: ["Python", "Machine Learning", "IoT", "Predictive Analytics"],
     short: "ML + IoT system for crop yield prediction.",
-    long: "AI-driven agriculture platform integrating Machine Learning, IoT sensors, predictive dashboards, real-time multilingual crop insights and optimized farming recommendations.",
-    features: [
-      "Crop yield prediction models",
-      "IoT sensor data pipeline",
-      "Predictive dashboards",
-      "Real-time multilingual crop insights",
-      "Optimized farming recommendations",
-    ],
+    description:
+      "An AI ML+ IoT agriculture system that analyzes crop and environmental data to predict crop yield and provide farming insights.",
     color: "var(--neon-green)",
     repo: "https://github.com/rithikka01/smart-harv",
   },
@@ -183,16 +175,10 @@ export const projects: Project[] = [
     id: "WORLD 1-2",
     title: "HUNGERHEAL",
     category: "Mobile Application",
-    tech: ["Flutter", "Firebase", "PostgreSQL"],
+    tech: ["Flutter", "Firebase", "PostgreSQL", "Python", "GitHub Actions"],
     short: "Mobile platform connecting food donors and volunteers.",
-    long: "Mobile platform connecting food donors and volunteers, built with Flutter, Firebase and PostgreSQL to coordinate donations end to end.",
-    features: [
-      "Real-time maps",
-      "Volunteer scheduling",
-      "Secure login",
-      "Chatbot assistance",
-      "Food donation workflow",
-    ],
+    description:
+      "A food-donation platform connecting donors and volunteers for donation coordination, scheduling, location tracking, and delivery management. Includes automated expired-listing archiving.",
     color: "var(--neon-pink)",
     repo: "https://github.com/rithikka01/hungerheal01",
   },
@@ -202,13 +188,8 @@ export const projects: Project[] = [
     category: "Career Guidance / Mobile App",
     tech: ["Flutter", "Firebase", "Figma"],
     short: "Career guidance application designed to help students navigate their career journey.",
-    long: "Career guidance application designed to help students navigate their career journey, with frontend and UI/UX built in Flutter, Firebase and Figma.",
-    features: [
-      "Personalized dashboards",
-      "Responsive UI",
-      "Frontend development",
-      "UI/UX design",
-    ],
+    description:
+      "A mobile career-guidance application that helps students explore career opportunities through personalized dashboards and interactive features.",
     color: "var(--neon-cyan)",
     repo: "https://github.com/rithikka01/skoolinq-final",
   },
@@ -218,12 +199,8 @@ export const projects: Project[] = [
     category: "NLP / AI",
     tech: ["Python", "NLP", "Flask"],
     short: "NLP chatbot for instant answers on government schemes.",
-    long: "NLP chatbot using structured dialogue flows to provide instant answers and reduce manual query handling.",
-    features: [
-      "Structured dialogue flows",
-      "Instant answers to public queries",
-      "Reduced manual query handling",
-    ],
+    description:
+      "An NLP chatbot that lets users ask questions about government driving schemes and receive relevant information through automated responses.",
     color: "var(--neon-yellow)",
     repo: "https://github.com/rithikka01/government-driving-ai-assistant",
   },
@@ -234,14 +211,8 @@ export const projects: Project[] = [
     tech: ["Python", "Streamlit", "NLP", "OpenAI", "ReportLab"],
     short:
       "AI-powered contract analyzer that detects risks, explains clauses, and suggests safer alternatives with automated PDF/JSON reports.",
-    long:
-      "AI-powered contract analyzer that detects risks, explains clauses, and suggests safer alternatives with automated PDF/JSON reports.",
-    features: [
-      "Risk detection",
-      "Clause explanation",
-      "Safer alternative suggestions",
-      "Automated PDF/JSON reports",
-    ],
+    description:
+      "An AI-powered contract analyzer that identifies potential risks, explains clauses, suggests safer alternatives, and generates PDF/JSON reports.",
     color: "var(--neon-purple)",
     repo: "https://github.com/rithikka01/contract-bot",
   },
