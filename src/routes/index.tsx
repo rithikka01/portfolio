@@ -256,59 +256,89 @@ function MissionsLevel() {
 }
 
 function ProjectsLevel() {
+  const [open, setOpen] = useState<string | null>(null);
   return (
     <LevelSection id="projects" label="LEVEL 04" title="PROJECTS" accent="var(--neon-yellow)">
       <div className="grid gap-6 md:grid-cols-2">
-        {projects.map((p) => (
-          <a
-            key={p.title}
-            href={p.repo}
-            target="_blank"
-            rel="noreferrer"
-            className="pixel-frame group relative block overflow-hidden p-6 transition-transform duration-150 hover:-translate-y-2"
-            style={{ borderColor: p.color }}
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-pixel text-[0.5rem]" style={{ color: p.color }}>
-                {p.category}
-              </span>
-              <span className="font-pixel text-[0.45rem] text-neon-pink opacity-0 transition-opacity group-hover:opacity-100">
-                ▶ MISSION READY
-              </span>
-            </div>
-            <h3
-              className="mt-4 text-sm leading-6 group-hover:animate-glitch sm:text-base"
-              style={{ color: p.color }}
+        {projects.map((p) => {
+          const isOpen = open === p.title;
+          return (
+            <article
+              key={p.title}
+              onClick={() => setOpen(isOpen ? null : p.title)}
+              className="pixel-frame group cursor-pointer overflow-hidden p-6 transition-transform duration-150 hover:-translate-y-2"
+              style={{ borderColor: p.color }}
+              aria-expanded={isOpen}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setOpen(isOpen ? null : p.title);
+                }
+              }}
             >
-              {p.title}
-            </h3>
-            <p className="mt-4 text-lg leading-7 text-foreground/90">{p.short}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {p.tech.map((t) => (
-                <span
-                  key={t}
-                  className="border-2 px-2 py-1 font-pixel text-[0.45rem]"
-                  style={{ borderColor: p.color, color: p.color }}
-                >
-                  {t}
+              <div className="flex items-center justify-between">
+                <span className="font-pixel text-[0.5rem]" style={{ color: p.color }}>
+                  {p.category}
                 </span>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <span className="arcade-btn inline-block group-hover:arcade-btn-hover">
-                VIEW CODE ▸
-              </span>
-              {p.demo && (
-                <span
-                  className="arcade-btn inline-block"
-                  style={{ background: "var(--neon-cyan)" }}
-                >
-                  LIVE DEMO
+                <span className="font-pixel text-[0.45rem] text-neon-pink opacity-0 transition-opacity group-hover:opacity-100">
+                  ▶ MISSION READY
                 </span>
+              </div>
+              <h3
+                className="mt-4 text-sm leading-6 group-hover:animate-glitch sm:text-base"
+                style={{ color: p.color }}
+              >
+                {p.title}
+              </h3>
+              <p className="mt-4 text-lg leading-7 text-foreground/90">{p.short}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {p.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="border-2 px-2 py-1 font-pixel text-[0.45rem]"
+                    style={{ borderColor: p.color, color: p.color }}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              {isOpen && (
+                <div className="animate-pop-in mt-6 border-t-2 border-border pt-5">
+                  <p className="font-pixel text-[0.55rem] text-neon-yellow">▸ WHAT IT IS</p>
+                  <p className="mt-3 text-lg leading-7 text-foreground/90">{p.description}</p>
+                  <p className="mt-5 font-pixel text-[0.55rem] text-neon-yellow">▸ TECH STACK</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {p.tech.map((t) => (
+                      <span
+                        key={`${p.title}-${t}`}
+                        className="border-2 px-2 py-1 font-pixel text-[0.45rem]"
+                        style={{ borderColor: p.color, color: p.color }}
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               )}
-            </div>
-          </a>
-        ))}
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <a
+                  href={p.repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="arcade-btn inline-block group-hover:arcade-btn-hover"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  VIEW CODE ▸
+                </a>
+                <span className="font-pixel text-[0.5rem] text-muted-foreground">
+                  {isOpen ? "▲ CLOSE" : "▼ DETAILS"}
+                </span>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </LevelSection>
   );
