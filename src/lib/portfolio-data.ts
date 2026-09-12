@@ -169,7 +169,7 @@ export const projects: Project[] = [
     description:
       "An AI ML+ IoT agriculture system that analyzes crop and environmental data to predict crop yield and provide farming insights.",
     color: "var(--neon-green)",
-    repo: "https://github.com/rithikka01/smart-harv",
+    repo: "https://github.com/rithikka01/smart-harvest-analytics",
   },
   {
     id: "WORLD 1-2",
