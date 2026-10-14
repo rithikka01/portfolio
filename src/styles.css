@@ -1,0 +1,241 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * RITHIKKA N — 2026 PORTFOLIO
+ * Retro 8-bit arcade design system. All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-purple: var(--neon-purple);
+  --color-neon-blue: var(--neon-blue);
+  --color-neon-green: var(--neon-green);
+  --color-neon-yellow: var(--neon-yellow);
+  --font-pixel: "Press Start 2P", monospace;
+  --font-term: "VT323", monospace;
+  --animate-blink: blink 1s steps(2, start) infinite;
+  --animate-float-slow: floaty 6s ease-in-out infinite;
+  --animate-scan: scan 8s linear infinite;
+  --animate-pop-in: pop-in 0.45s steps(6, end);
+  --animate-glitch: glitch 2.4s infinite steps(2, end);
+}
+
+:root {
+  --radius: 0px;
+  --background: oklch(0.16 0.06 285);
+  --foreground: oklch(0.96 0.02 250);
+  --card: oklch(0.22 0.07 288);
+  --card-foreground: oklch(0.96 0.02 250);
+  --popover: oklch(0.19 0.07 287);
+  --popover-foreground: oklch(0.96 0.02 250);
+  --primary: oklch(0.72 0.25 340);
+  --primary-foreground: oklch(0.14 0.05 285);
+  --secondary: oklch(0.28 0.08 289);
+  --secondary-foreground: oklch(0.96 0.02 250);
+  --muted: oklch(0.26 0.06 288);
+  --muted-foreground: oklch(0.78 0.05 280);
+  --accent: oklch(0.82 0.16 195);
+  --accent-foreground: oklch(0.14 0.05 285);
+  --destructive: oklch(0.63 0.24 25);
+  --destructive-foreground: oklch(0.98 0.01 250);
+  --border: oklch(0.45 0.14 300);
+  --input: oklch(0.3 0.08 290);
+  --ring: oklch(0.82 0.16 195);
+
+  --neon-pink: oklch(0.72 0.25 340);
+  --neon-cyan: oklch(0.85 0.16 195);
+  --neon-purple: oklch(0.62 0.22 305);
+  --neon-blue: oklch(0.68 0.19 258);
+  --neon-green: oklch(0.85 0.22 145);
+  --neon-yellow: oklch(0.89 0.18 95);
+}
+
+@keyframes blink {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+@keyframes pop-in {
+  0% {
+    transform: scale(0.6) translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes glitch {
+  0%,
+  92%,
+  100% {
+    text-shadow:
+      2px 0 var(--neon-cyan),
+      -2px 0 var(--neon-pink);
+    transform: translate(0);
+  }
+  94% {
+    text-shadow:
+      -3px 0 var(--neon-cyan),
+      3px 0 var(--neon-pink);
+    transform: translate(2px, -1px);
+  }
+  97% {
+    text-shadow:
+      3px 0 var(--neon-green),
+      -3px 0 var(--neon-purple);
+    transform: translate(-2px, 1px);
+  }
+}
+@keyframes bar-fill {
+  from {
+    width: 0%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-term);
+    font-size: 1.15rem;
+    image-rendering: pixelated;
+    background-image:
+      radial-gradient(circle at 12% 18%, color-mix(in oklab, var(--neon-purple) 22%, transparent), transparent 45%),
+      radial-gradient(circle at 88% 10%, color-mix(in oklab, var(--neon-blue) 18%, transparent), transparent 40%),
+      radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--neon-pink) 14%, transparent), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  button {
+    font-family: var(--font-pixel);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+}
+
+@utility pixel-frame {
+  position: relative;
+  background: var(--card);
+  border: 3px solid var(--border);
+  box-shadow:
+    0 0 0 3px oklch(0.14 0.05 285),
+    6px 6px 0 0 color-mix(in oklab, var(--neon-purple) 60%, transparent);
+}
+
+@utility pixel-frame-cyan {
+  border-color: var(--neon-cyan);
+  box-shadow:
+    0 0 0 3px oklch(0.14 0.05 285),
+    6px 6px 0 0 color-mix(in oklab, var(--neon-cyan) 45%, transparent);
+}
+
+@utility pixel-frame-pink {
+  border-color: var(--neon-pink);
+  box-shadow:
+    0 0 0 3px oklch(0.14 0.05 285),
+    6px 6px 0 0 color-mix(in oklab, var(--neon-pink) 45%, transparent);
+}
+
+@utility text-glow {
+  text-shadow:
+    0 0 6px color-mix(in oklab, currentColor 70%, transparent),
+    0 0 18px color-mix(in oklab, currentColor 40%, transparent);
+}
+
+@utility crt-overlay {
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    oklch(0 0 0 / 0.22) 0px,
+    oklch(0 0 0 / 0.22) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+@utility arcade-btn {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  padding: 0.85rem 1.2rem;
+  color: var(--primary-foreground);
+  background: var(--neon-pink);
+  border: 3px solid oklch(0.14 0.05 285);
+  box-shadow: 0 5px 0 0 color-mix(in oklab, var(--neon-purple) 80%, black);
+  transition:
+    transform 0.12s steps(2, end),
+    box-shadow 0.12s steps(2, end),
+    background 0.2s;
+}
+
+@utility arcade-btn-hover {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 0 color-mix(in oklab, var(--neon-purple) 80%, black);
+}
+
+/* Pixel cursor */
+@layer base {
+  body {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 12 12' shape-rendering='crispEdges'><path d='M1 0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v1h-4v1h-1v1h-1v-1h-1V0z' fill='%23ff45c8' stroke='black' stroke-width='0.5'/></svg>") 2 2, auto;
+  }
+  a, button, [role="button"] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 12 12' shape-rendering='crispEdges'><rect x='2' y='2' width='8' height='8' fill='%2367e8f9' stroke='black' stroke-width='1'/></svg>") 6 6, pointer;
+  }
+}
